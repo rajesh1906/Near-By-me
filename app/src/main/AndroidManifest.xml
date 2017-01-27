@@ -35,7 +35,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".Activities.DashBoard"
+            android:name=".Activities.Splash_Screen"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,6 +44,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MapView"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.DashBoard"
             android:screenOrientation="portrait"/>
     </application>
 

@@ -97,6 +97,4 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs
         return String.valueOf(longitude);
     }
 
-
-
 }
