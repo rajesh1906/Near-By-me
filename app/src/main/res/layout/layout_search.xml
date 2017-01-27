@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mainfl"
+        android:orientation="horizontal"
+
+       >
+
+        <EditText
+            android:id="@+id/edittext_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cursorVisible="true"
+            android:hint="Search"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:inputType="text"
+            android:textColor="@color/White"
+            android:paddingRight="30dp"
+            android:focusable="true"
+            android:drawablePadding="4dp"
+            android:textSize="12dp"
+            android:drawableLeft="@drawable/search_icon"
+            android:imeOptions="actionSearch"
+            android:layout_toLeftOf="@+id/clear"
+           />
+
+
+        <ImageView
+            android:id="@+id/clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_margin="4dp"
+            android:padding="5dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/cancel_icon"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

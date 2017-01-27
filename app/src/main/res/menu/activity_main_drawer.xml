@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!--  <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_camera"
+            android:title="Import" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:title="Gallery" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:title="Slideshow" />
+        <item
+            android:id="@+id/nav_manage"
+            android:title="Tools" />
+    </group>-->
+
+    <item android:title="English News">
+        <menu>
+           <item
+               android:id="@+id/ee"
+               android:title="Eenadu"/>
+        </menu>
+    </item>
+    <item android:title="Telugu News">
+        <menu>
+            <item
+                android:id="@+id/eenadu"
+                android:title="Eenadu" />
+            <item
+                android:id="@+id/andhra_bhoomi"
+                android:title="Andhra Bhoomi" />
+            <item
+                android:id="@+id/andhra_joythi"
+                android:title="Andhra Jyothi" />
+            <item
+                android:id="@+id/sakshi"
+                android:title="Sakshi" />
+            <item
+                android:id="@+id/namaste_telangana"
+                android:title="Namasthe Telangana" />
+            <item
+                android:id="@+id/vartha"
+                android:title="Vartha" />
+        </menu>
+    </item>
+
+    <item android:title="Hindi News">
+        <menu>
+            <item
+                android:id="@+id/au"
+                android:title="Amar Ujala" />
+            <item
+                android:id="@+id/dj"
+                android:title="Dainik Jagran" />
+            <item
+                android:id="@+id/hm"
+                android:title="Hindi Milap" />
+            <item
+                android:id="@+id/nav_barth"
+                android:title="Nava Bharat" />
+            <item
+                android:id="@+id/pb"
+                android:title="Prabhat Khabar" />
+            <item
+                android:id="@+id/nd"
+                android:title="National Duniya" />
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">NearByMe</string>
+    <string name="title_activity_dash_board">Map</string>
+    <string-array name="tab_names">
+        <item>Hospitals</item>
+        <item>Schools</item>
+        <item>Restaurants</item>
+        <item>Banks</item>
+        <item>More</item>
+    </string-array>
+    <string-array name="tab_icons">
+        <item>@drawable/hospital</item>
+        <item>@drawable/school</item>
+        <item>@drawable/restaurant</item>
+        <item>@drawable/bank</item>
+        <item>@drawable/more</item>
+
+    </string-array>
+
+    <string-array name="more_items">
+        <item>Atms</item>
+        <item>Clubs</item>
+    </string-array>
+    <string-array name="more_icons">
+        <item>@drawable/atm</item>
+        <item>@drawable/clubs</item>
+    </string-array>
+</resources>
