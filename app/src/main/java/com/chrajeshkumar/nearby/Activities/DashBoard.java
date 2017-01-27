@@ -34,10 +34,6 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs
         setContentView(R.layout.home_view);
         activity = this;
         gettingLatLongs();
-        ButterKnife.bind(this);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tab_names = getResources().getStringArray(R.array.tab_names);
           testArrayIcon = getResources().obtainTypedArray(R.array.tab_icons);
