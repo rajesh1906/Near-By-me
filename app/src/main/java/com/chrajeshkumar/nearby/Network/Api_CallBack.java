@@ -52,7 +52,6 @@ public class Api_CallBack implements Response.Listener,
         this.longitude = longitude;
         this.for_search = for_search;
         Volley_service();
-
     }
     public Api_CallBack( Restaurants restaurants,String latitude,String longitude,String for_search){
         this.restaurants = restaurants;
