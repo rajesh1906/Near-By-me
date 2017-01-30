@@ -45,9 +45,9 @@ public class Splash_Screen extends AppCompatActivity {
                 super.handleMessage(msg);
 
                 try {
-//                    Intent intent = new Intent(Splash_Screen.this,DashBoard.class);
-//                    startActivity(intent);
-//                    finish();
+                    Intent intent = new Intent(Splash_Screen.this,DashBoard.class);
+                    startActivity(intent);
+                    finish();
                 }catch (Exception e){
                     e.printStackTrace();
                 }

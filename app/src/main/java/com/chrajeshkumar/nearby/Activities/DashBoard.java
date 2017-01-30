@@ -8,12 +8,22 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.chrajeshkumar.nearby.Helper.GPSTracker;
 import com.chrajeshkumar.nearby.Helper.GetLat_Longs;
 import com.chrajeshkumar.nearby.MapView;
+import com.chrajeshkumar.nearby.Network.JSON.CustomJSONObjectRequest;
+import com.chrajeshkumar.nearby.Network.JSON.CustomVolleyRequestQueue;
 import com.chrajeshkumar.nearby.R;
+import com.chrajeshkumar.nearby.Utils.EndPoints;
 import com.chrajeshkumar.nearby.adapters.PagerAdapter;
+
+import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 
@@ -21,13 +31,17 @@ import butterknife.ButterKnife;
  * Created by ChRajeshKumar on 25-Jan-17.
  */
 
-public class DashBoard extends AppCompatActivity implements GetLat_Longs
+public class DashBoard extends AppCompatActivity implements GetLat_Longs, Response.Listener,
+        Response.ErrorListener
 {
     String[] tab_names;
     TypedArray testArrayIcon;
     public static Activity activity;
     GPSTracker gps;
     double latitude,longitude;
+    private RequestQueue mQueue;
+    public static final String REQUEST_TAG = "DashBoard";
+    CustomJSONObjectRequest jsonRequest;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +63,8 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs
             TabLayout.Tab tab = tabLayout.getTabAt(i);
             tab.setCustomView(adapter.getTabView(i,tab_names,testArrayIcon));
         }
+//        Volley_service();
+//        mQueue.add(jsonRequest);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -96,5 +112,60 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs
     public String getLongitude() {
         return String.valueOf(longitude);
     }
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Log.e("error is ","<><>error"+error.toString());
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Instantiate the RequestQueue.
+        mQueue = CustomVolleyRequestQueue.getInstance(this.getApplicationContext())
+                .getRequestQueue();
+        String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=16.9891,82.2475&radius=1000&types=hospital&name=hospitals&sensor=false&key=AIzaSyDkp9gJIpPUNivsOQxbNKCqhg1CoO_IEjw";
+        jsonRequest = new CustomJSONObjectRequest(Request.Method
+                .GET, url,
+                new JSONObject(), this, this);
+        jsonRequest.setTag(REQUEST_TAG);
+//        mQueue.add(jsonRequest);
+       /* mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mQueue.add(jsonRequest);
+            }
+        });*/
+    }
+    @Override
+    public void onResponse(Object response) {
+
+        try {
+            Log.e("response is ","<><>"+(response).toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void Volley_service(){
+        // Instantiate the RequestQueue.
+        mQueue = CustomVolleyRequestQueue.getInstance(getApplicationContext())
+                .getRequestQueue();
+        String url = EndPoints.getSearching(String.valueOf(latitude),String.valueOf(longitude),"hospital");
+        final CustomJSONObjectRequest jsonRequest = new CustomJSONObjectRequest(Request.Method
+                .GET, url,
+                new JSONObject(), this, this);
+        jsonRequest.setTag(REQUEST_TAG);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mQueue != null) {
+            mQueue.cancelAll(REQUEST_TAG);
+        }
+    }
+
+
 
 }

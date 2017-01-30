@@ -11,21 +11,33 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.chrajeshkumar.nearby.Activities.DashBoard;
 import com.chrajeshkumar.nearby.Helper.Api_interface;
 import com.chrajeshkumar.nearby.Helper.GetClass_name;
 import com.chrajeshkumar.nearby.Helper.GetLat_Longs;
+import com.chrajeshkumar.nearby.Network.Api_CallBack;
+import com.chrajeshkumar.nearby.Network.JSON.CustomJSONObjectRequest;
+import com.chrajeshkumar.nearby.Network.JSON.CustomVolleyRequestQueue;
 import com.chrajeshkumar.nearby.Network.Network_callback;
 import com.chrajeshkumar.nearby.Pojo.Root;
 import com.chrajeshkumar.nearby.R;
+import com.chrajeshkumar.nearby.Utils.EndPoints;
 import com.chrajeshkumar.nearby.adapters.Dashboard_Adapter;
 import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by ChRajeshKumar on 26-Jan-17.
  */
 
-public class Hospitals extends Fragment implements Api_interface,GetClass_name {
+public class Hospitals extends Fragment implements Api_interface,GetClass_name, Response.Listener,
+        Response.ErrorListener  {
 
     RecyclerView recycler_view;
     View view;
@@ -36,6 +48,8 @@ public class Hospitals extends Fragment implements Api_interface,GetClass_name {
     GetLat_Longs getLat_longs;
     Class from_class;
     boolean setone = true;
+    private RequestQueue mQueue;
+    public static final String REQUEST_TAG = "Hospitals";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         context = getActivity().getBaseContext();
@@ -45,6 +59,7 @@ public class Hospitals extends Fragment implements Api_interface,GetClass_name {
         mLayoutManager = new LinearLayoutManager(context);
         recycler_view.setLayoutManager(mLayoutManager);
         from_class = Hospitals.class;
+//        Volley_service();
         return view;
     }
 
@@ -55,7 +70,8 @@ public class Hospitals extends Fragment implements Api_interface,GetClass_name {
         from_class = Hospitals.class;
         if(isVisibleToUser&&setone){
             setone = false;
-            new Network_callback(Hospitals.this,getLat_longs.getLatitude(),getLat_longs.getLongitude(),"hospital").execute();
+           new Api_CallBack(Hospitals.this,getLat_longs.getLatitude(),getLat_longs.getLongitude(),"hospital");
+
         }
     }
 
@@ -82,4 +98,39 @@ public class Hospitals extends Fragment implements Api_interface,GetClass_name {
         return from_class;
     }
 
+
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Log.e("error is ","<><>error"+error.toString());
+    }
+
+    @Override
+    public void onResponse(Object response) {
+
+        try {
+           Log.e("response is ","<>in fragment<>"+(response).toString());
+            resultentApi((response).toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void Volley_service(){
+        // Instantiate the RequestQueue.
+        mQueue = CustomVolleyRequestQueue.getInstance(context)
+                .getRequestQueue();
+        String url = EndPoints.getSearching(getLat_longs.getLatitude(),getLat_longs.getLongitude(),"hospital");
+        final CustomJSONObjectRequest jsonRequest = new CustomJSONObjectRequest(Request.Method
+                .GET, url,
+                new JSONObject(), this, this);
+        jsonRequest.setTag(REQUEST_TAG);
+        mQueue.add(jsonRequest);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mQueue != null) {
+            mQueue.cancelAll(REQUEST_TAG);
+        }
+    }
 }

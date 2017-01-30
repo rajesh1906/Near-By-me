@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.chrajeshkumar.nearby.Activities.DashBoard;
 import com.chrajeshkumar.nearby.Helper.Api_interface;
 import com.chrajeshkumar.nearby.Helper.GetLat_Longs;
+import com.chrajeshkumar.nearby.Network.Api_CallBack;
 import com.chrajeshkumar.nearby.Network.Network_callback;
 import com.chrajeshkumar.nearby.Pojo.Root;
 import com.chrajeshkumar.nearby.R;
@@ -50,7 +51,7 @@ public class Banks extends Fragment implements Api_interface {
         getLat_longs = (GetLat_Longs) DashBoard.activity;
         if(isVisibleToUser&&setone){
             setone = false;
-            new Network_callback(Banks.this,getLat_longs.getLatitude(),getLat_longs.getLongitude(),"Banks").execute();
+            new Api_CallBack(Banks.this,getLat_longs.getLatitude(),getLat_longs.getLongitude(),"Banks");
         }
     }
 
