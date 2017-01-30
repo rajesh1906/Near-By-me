@@ -73,7 +73,7 @@ public class Api_CallBack implements Response.Listener,
     }
     public Api_CallBack(More more, String latitude, String longitude, String for_search){
         this.more = more;
-        this.api_interface = banks;
+        this.api_interface = more;
         this.latitude = latitude;
         this.longitude = longitude;
         this.for_search = for_search;
