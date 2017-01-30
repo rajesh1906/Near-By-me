@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.chrajeshkumar.nearby.Activities.DashBoard;
+import com.chrajeshkumar.nearby.Helper.GetLat_Longs;
+import com.chrajeshkumar.nearby.Map.Map_Compact;
 import com.chrajeshkumar.nearby.MapView;
 import com.chrajeshkumar.nearby.Pojo.Root;
 import com.chrajeshkumar.nearby.R;
@@ -26,9 +29,13 @@ public class Dashboard_Adapter extends RecyclerView.Adapter<Dashboard_Adapter.Vi
     View view;
     ViewHolder holder;
     Root root;
+    Map_Compact map_compact;
+    GetLat_Longs getLat_longs;
     public Dashboard_Adapter(Context c, Root root) {
         mContext = c;
         this.root = root;
+        map_compact = new Map_Compact(mContext);
+        getLat_longs =(GetLat_Longs) DashBoard.activity;
     }
 
     @Override
@@ -43,11 +50,14 @@ public class Dashboard_Adapter extends RecyclerView.Adapter<Dashboard_Adapter.Vi
         holder.txt_titles.setText(root.getResults().get(position).getName());
         holder.txt_address_value.setText(root.getResults().get(position).getVicinity());
 
+        Log.e(" position distence is ","<><>distence is"+map_compact.distance(root.getResults().get(position).getGeometry().getLocation().getLat(),Double.valueOf(getLat_longs.getLatitude()),
+                root.getResults().get(position).getGeometry().getLocation().getLng(),Double.valueOf(getLat_longs.getLongitude()))+" position is "+position);
+
+
         holder.img_map_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("lat longs is ","<><<>lat is "+root.getResults().get(position).getGeometry().getLocation().getLat()+" long is "+root.getResults().get(position).getGeometry().getLocation().getLng());
-
                 Bundle bundle = new Bundle();
                 bundle.putString("lat",String.valueOf(root.getResults().get(position).getGeometry().getLocation().getLat()));
                 bundle.putString("long",String.valueOf(root.getResults().get(position).getGeometry().getLocation().getLng()));

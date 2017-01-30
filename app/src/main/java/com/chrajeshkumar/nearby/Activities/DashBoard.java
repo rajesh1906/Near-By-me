@@ -31,8 +31,7 @@ import butterknife.ButterKnife;
  * Created by ChRajeshKumar on 25-Jan-17.
  */
 
-public class DashBoard extends AppCompatActivity implements GetLat_Longs, Response.Listener,
-        Response.ErrorListener
+public class DashBoard extends AppCompatActivity implements GetLat_Longs
 {
     String[] tab_names;
     TypedArray testArrayIcon;
@@ -113,58 +112,19 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs, Respon
         return String.valueOf(longitude);
     }
 
-    @Override
-    public void onErrorResponse(VolleyError error) {
-        Log.e("error is ","<><>error"+error.toString());
-    }
+
 
 
     @Override
     protected void onStart() {
         super.onStart();
         // Instantiate the RequestQueue.
-        mQueue = CustomVolleyRequestQueue.getInstance(this.getApplicationContext())
-                .getRequestQueue();
-        String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=16.9891,82.2475&radius=1000&types=hospital&name=hospitals&sensor=false&key=AIzaSyDkp9gJIpPUNivsOQxbNKCqhg1CoO_IEjw";
-        jsonRequest = new CustomJSONObjectRequest(Request.Method
-                .GET, url,
-                new JSONObject(), this, this);
-        jsonRequest.setTag(REQUEST_TAG);
-//        mQueue.add(jsonRequest);
-       /* mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mQueue.add(jsonRequest);
-            }
-        });*/
-    }
-    @Override
-    public void onResponse(Object response) {
 
-        try {
-            Log.e("response is ","<><>"+(response).toString());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    public void Volley_service(){
-        // Instantiate the RequestQueue.
-        mQueue = CustomVolleyRequestQueue.getInstance(getApplicationContext())
-                .getRequestQueue();
-        String url = EndPoints.getSearching(String.valueOf(latitude),String.valueOf(longitude),"hospital");
-        final CustomJSONObjectRequest jsonRequest = new CustomJSONObjectRequest(Request.Method
-                .GET, url,
-                new JSONObject(), this, this);
-        jsonRequest.setTag(REQUEST_TAG);
-    }
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mQueue != null) {
-            mQueue.cancelAll(REQUEST_TAG);
-        }
-    }
+
+
+
 
 
 
