@@ -19,6 +19,7 @@ import com.chrajeshkumar.nearby.Activities.DashBoard;
 import com.chrajeshkumar.nearby.Helper.Api_interface;
 import com.chrajeshkumar.nearby.Helper.GetClass_name;
 import com.chrajeshkumar.nearby.Helper.GetLat_Longs;
+import com.chrajeshkumar.nearby.Helper.Recalling;
 import com.chrajeshkumar.nearby.Network.Api_CallBack;
 import com.chrajeshkumar.nearby.Network.JSON.CustomJSONObjectRequest;
 import com.chrajeshkumar.nearby.Network.JSON.CustomVolleyRequestQueue;
@@ -37,7 +38,7 @@ import org.json.JSONObject;
  */
 
 public class Hospitals extends Fragment implements Api_interface,GetClass_name, Response.Listener,
-        Response.ErrorListener  {
+        Response.ErrorListener,Recalling {
 
     RecyclerView recycler_view;
     View view;
@@ -49,6 +50,7 @@ public class Hospitals extends Fragment implements Api_interface,GetClass_name, 
     Class from_class;
     boolean setone = true;
     private RequestQueue mQueue;
+    static boolean initial_is=true;
     public static final String REQUEST_TAG = "Hospitals";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class Hospitals extends Fragment implements Api_interface,GetClass_name, 
         from_class = Hospitals.class;
         if(isVisibleToUser&&setone){
             setone = false;
+            initial_is = false;
            new Api_CallBack(Hospitals.this,getLat_longs.getLatitude(),getLat_longs.getLongitude(),"hospital");
 
         }
@@ -132,5 +135,12 @@ public class Hospitals extends Fragment implements Api_interface,GetClass_name, 
         if (mQueue != null) {
             mQueue.cancelAll(REQUEST_TAG);
         }
+    }
+
+    @Override
+    public void reCall_network_callback() {
+        Log.e("coming to interface data is ","<<>><>");
+//        if(initial_is)
+        new Api_CallBack(Hospitals.this,getLat_longs.getLatitude(),getLat_longs.getLongitude(),"hospital");
     }
 }

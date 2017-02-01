@@ -16,6 +16,7 @@ import com.chrajeshkumar.nearby.Fragments.Hospitals;
 import com.chrajeshkumar.nearby.Fragments.More;
 import com.chrajeshkumar.nearby.Fragments.Restaurants;
 import com.chrajeshkumar.nearby.Fragments.Schools;
+import com.chrajeshkumar.nearby.Helper.Recalling;
 import com.chrajeshkumar.nearby.R;
 
 /**
@@ -24,7 +25,12 @@ import com.chrajeshkumar.nearby.R;
 public class PagerAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabs;
     private Context context;
-
+    Hospitals tab1;
+    Schools tab2;
+    Restaurants tab3;
+    Banks tab4;
+    More tab5;
+    Recalling recalling;
     public PagerAdapter(FragmentManager fm, int NumOfTabs,Context context) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
@@ -36,19 +42,19 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         switch (position) {
             case 0:
-                Hospitals tab1 = new Hospitals();
+                 tab1 = new Hospitals();
                 return tab1;
             case 1:
-                Schools tab2 = new Schools();
+                 tab2 = new Schools();
                 return tab2;
             case 2:
-                Restaurants tab3 = new Restaurants();
+                 tab3 = new Restaurants();
                 return tab3;
             case 3:
-                Banks tab4 = new Banks();
+                 tab4 = new Banks();
                 return tab4;
             case 4:
-                More tab5 = new More();
+                 tab5 = new More();
                 return tab5;
             default:
                 return null;
@@ -68,5 +74,28 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         imageView.setImageResource(tabIcons.getResourceId(position,-1));
 
         return v;
+    }
+
+    public void Calling_Fregment(int position){
+
+
+        switch (position){
+            case 0:
+                 recalling = tab1;
+                break;
+            case 1:
+                 recalling = tab2;
+                break;
+            case 2:
+                recalling = tab3;
+                break;
+            case 3:
+                recalling = tab4;
+                break;
+            case 4:
+                recalling = tab5;
+                break;
+        }
+        recalling.reCall_network_callback();
     }
 }

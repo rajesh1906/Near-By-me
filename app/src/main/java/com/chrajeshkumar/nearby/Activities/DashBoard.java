@@ -14,10 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.chrajeshkumar.nearby.Helper.GPSTracker;
 import com.chrajeshkumar.nearby.Helper.GetLat_Longs;
-import com.chrajeshkumar.nearby.Network.JSON.CustomJSONObjectRequest;
 import com.chrajeshkumar.nearby.R;
 import com.chrajeshkumar.nearby.adapters.PagerAdapter;
 
@@ -32,15 +30,16 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs {
     GPSTracker gps;
     double latitude, longitude;
     Spinner spinner;
-    public static String distance = "100 mtrs";
+    public static int distance = 500;
     String[] range;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.home_view);
-        spinner = (Spinner)findViewById(R.id.spinner);
+        spinner = (Spinner) findViewById(R.id.spinner);
         activity = this;
         gettingLatLongs();
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
@@ -86,8 +85,10 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                distance = range[position];
-                Toast.makeText(DashBoard.this,"distance is "+distance,Toast.LENGTH_LONG).show();
+                distance = Integer.parseInt(range[position].replaceAll("[\\D]", ""));
+                Toast.makeText(DashBoard.this, "distance is " + distance, Toast.LENGTH_LONG).show();
+                adapter.Calling_Fregment(viewPager.getCurrentItem());
+                Log.e("view pager position is ", "<><><" + viewPager.getCurrentItem());
             }
 
             @Override

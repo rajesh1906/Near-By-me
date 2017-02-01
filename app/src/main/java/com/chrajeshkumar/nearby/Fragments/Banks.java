@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.chrajeshkumar.nearby.Activities.DashBoard;
 import com.chrajeshkumar.nearby.Helper.Api_interface;
 import com.chrajeshkumar.nearby.Helper.GetLat_Longs;
+import com.chrajeshkumar.nearby.Helper.Recalling;
 import com.chrajeshkumar.nearby.Network.Api_CallBack;
 import com.chrajeshkumar.nearby.Network.Network_callback;
 import com.chrajeshkumar.nearby.Pojo.Root;
@@ -25,7 +26,7 @@ import com.google.gson.Gson;
  * Created by ChRajeshKumar on 26-Jan-17.
  */
 
-public class Banks extends Fragment implements Api_interface {
+public class Banks extends Fragment implements Api_interface,Recalling {
     RecyclerView recycler_view;
     View view;
     public Context context;
@@ -71,5 +72,10 @@ public class Banks extends Fragment implements Api_interface {
     @Override
     public Activity getactiviy_ref() {
         return (Activity)context;
+    }
+
+    @Override
+    public void reCall_network_callback() {
+        new Api_CallBack(Banks.this,getLat_longs.getLatitude(),getLat_longs.getLongitude(),"Banks");
     }
 }

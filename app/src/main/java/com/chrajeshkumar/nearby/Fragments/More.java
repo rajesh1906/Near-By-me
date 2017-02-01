@@ -23,6 +23,7 @@ import com.chrajeshkumar.nearby.Helper.Api_interface;
 import com.chrajeshkumar.nearby.Helper.CustomeGridview;
 import com.chrajeshkumar.nearby.Helper.GetClass_name;
 import com.chrajeshkumar.nearby.Helper.GetLat_Longs;
+import com.chrajeshkumar.nearby.Helper.Recalling;
 import com.chrajeshkumar.nearby.Network.Api_CallBack;
 import com.chrajeshkumar.nearby.Network.Network_callback;
 import com.chrajeshkumar.nearby.Pojo.Root;
@@ -35,7 +36,7 @@ import com.google.gson.Gson;
  * Created by ChRajeshKumar on 26-Jan-17.
  */
 
-public class More extends Fragment implements Api_interface,GetClass_name {
+public class More extends Fragment implements Api_interface,GetClass_name,Recalling {
     View view;
     public Context context;
     Gson gson = new Gson();
@@ -111,5 +112,10 @@ public class More extends Fragment implements Api_interface,GetClass_name {
     @Override
     public Class fromActivity() {
         return from_class;
+    }
+
+    @Override
+    public void reCall_network_callback() {
+
     }
 }
