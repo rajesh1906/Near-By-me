@@ -19,20 +19,9 @@
         <RelativeLayout
             android:id="@+id/rel"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             >
-
-            <TextView
-                android:id="@+id/txt_titles"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="Title"
-                android:layout_marginTop="20dp"
-                android:textColor="@color/White"
-                android:textSize="17sp"
-                android:typeface="serif" />
 
             <ImageView
                 android:id="@+id/img_man"
@@ -40,40 +29,79 @@
                 android:layout_height="15dp"
                 android:layout_below="@+id/txt_titles"
                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="10sp"
                 android:src="@drawable/man"/>
             <TextView
-                android:id="@+id/txt_time"
+
+                android:id="@+id/txt_distence"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/img_man"
                 android:layout_marginLeft="5dp"
-                android:text="3.40min"
-                android:layout_marginTop="20sp"
+                android:text="700m"
+                android:layout_marginTop="10sp"
                 android:layout_below="@+id/txt_titles"
                 android:textColor="@color/White"
-                android:textSize="14sp"
+                android:textSize="13sp"
+                android:layout_marginBottom="5sp"
                 android:typeface="serif" />
             <TextView
-                android:id="@+id/txt_distence"
+                android:id="@+id/txt_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30sp"
                 android:text="700m"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="10sp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="30dp"
                 android:layout_below="@+id/txt_titles"
                 android:textColor="@color/White"
+                android:visibility="gone"
                 android:textSize="14sp"
                 android:typeface="serif" />
+            <RelativeLayout
+                android:id="@+id/ll_map_icon"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_below="@+id/txt_titles"
+                android:layout_alignParentRight="true">
+            <ImageView
+                android:id="@+id/img_map_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/map_icon"
+                android:layout_marginRight="10dp"
+              android:layout_alignParentRight="true"
+               />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/txt_titles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:ems="25"
+                android:text="Title"
+                android:textColor="@color/White"
+                android:textSize="17sp"
+                android:typeface="serif"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
         </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rel"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+
     <TextView
         android:id="@+id/txt_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Address:"
-        android:layout_below="@+id/rel"
         android:layout_marginTop="5dp"
         android:textSize="18dp"
         android:textColor="@color/colorPrimary"
@@ -85,23 +113,15 @@
                 android:id="@+id/txt_address_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_address"
                 android:textSize="14dp"
                 android:text="sdfs"
-                android:layout_toRightOf="@+id/txt_address"
+                android:layout_marginTop="5dp"
                 android:textColor="@color/colorPrimary"
                 android:typeface="serif"
+                android:paddingBottom="10dp"
                 android:layout_marginLeft="10sp"
                 />
-
-            <ImageView
-                android:id="@+id/img_map_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/map_icon"
-              android:layout_below="@+id/txt_address_value"
-                android:layout_margin="15sp"
-                android:layout_alignParentRight="true"/>
+            </LinearLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

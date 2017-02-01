@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,11 +52,12 @@ public class Dashboard_Adapter extends RecyclerView.Adapter<Dashboard_Adapter.Vi
         holder.txt_titles.setText(root.getResults().get(position).getName());
         holder.txt_address_value.setText(root.getResults().get(position).getVicinity());
 
-        Log.e(" position distence is ","<><>distence is"+map_compact.distance(root.getResults().get(position).getGeometry().getLocation().getLat(),Double.valueOf(getLat_longs.getLatitude()),
-                root.getResults().get(position).getGeometry().getLocation().getLng(),Double.valueOf(getLat_longs.getLongitude()))+" position is "+position);
+        Log.e(" position distence is ","<><>distence is"+Map_Compact.distance(root.getResults().get(position).getGeometry().getLocation().getLat(),Double.valueOf(getLat_longs.getLatitude()),
+                root.getResults().get(position).getGeometry().getLocation().getLng(),Double.valueOf(getLat_longs.getLongitude())));
 
-
-        holder.img_map_icon.setOnClickListener(new View.OnClickListener() {
+        holder.txt_distence.setText(Map_Compact.distance(root.getResults().get(position).getGeometry().getLocation().getLat(),Double.valueOf(getLat_longs.getLatitude()),
+                root.getResults().get(position).getGeometry().getLocation().getLng(),Double.valueOf(getLat_longs.getLongitude())));
+        holder.ll_map_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("lat longs is ","<><<>lat is "+root.getResults().get(position).getGeometry().getLocation().getLat()+" long is "+root.getResults().get(position).getGeometry().getLocation().getLng());
@@ -76,13 +79,16 @@ public class Dashboard_Adapter extends RecyclerView.Adapter<Dashboard_Adapter.Vi
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txt_titles,txt_address_value;
+        TextView txt_titles,txt_address_value,txt_distence;
         ImageView img_map_icon;
+        RelativeLayout ll_map_icon;
         public ViewHolder(View convertView) {
             super(convertView);
             txt_titles = (TextView) convertView.findViewById(R.id.txt_titles);
             txt_address_value = (TextView) convertView.findViewById(R.id.txt_address_value);
             img_map_icon = (ImageView) convertView.findViewById(R.id.img_map_icon);
+            txt_distence = (TextView)convertView.findViewById(R.id.txt_distence);
+            ll_map_icon = (RelativeLayout) convertView.findViewById(R.id.ll_map_icon);
         }
 
     }
