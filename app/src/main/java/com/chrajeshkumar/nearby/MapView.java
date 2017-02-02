@@ -1,11 +1,14 @@
 package com.chrajeshkumar.nearby;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +19,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.BounceInterpolator;
 import android.view.animation.Interpolator;
+import android.widget.ImageView;
 
 import com.chrajeshkumar.nearby.Activities.DashBoard;
 import com.chrajeshkumar.nearby.Helper.GPSTracker;
@@ -35,6 +39,9 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -60,6 +67,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     private Boolean isFabOpen = false;
     ArrayList<LatLng> markerPoints;
     LatLng location,own_location;
+    Bitmap mbitmap;
+    ImageView image_screen_shot,img_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +77,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab_share = (FloatingActionButton) findViewById(R.id.fab_share);
         fab_root_view = (FloatingActionButton) findViewById(R.id.fab_root_view);
+        image_screen_shot = (ImageView) findViewById(R.id.image_screen_shot);
+        img_back = (ImageView) findViewById(R.id.img_back);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -85,7 +96,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         fab.setOnClickListener(this);
         fab_share.setOnClickListener(this);
         fab_root_view.setOnClickListener(this);
+        img_back.setOnClickListener(this);
         markerPoints = new ArrayList<LatLng>();
+        image_screen_shot.setVisibility(View.GONE);
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -149,6 +162,12 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 // Start downloading json data from Google Directions API
                 downloadTask.execute(url);
                 animateFAB();
+                break;
+            case R.id.fab_share:
+                screenShot();
+                break;
+            case R.id.img_back:
+                finish();
                 break;
         }
     }
@@ -335,6 +354,34 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             }
             // Drawing polyline in the Google Map for the i-th route
             mMap.addPolyline(lineOptions);
+        }
+    }
+    public void screenShot() {
+        mbitmap = getBitmapOFRootView(fab_share);
+//        image_screen_shot.setImageBitmap(mbitmap);
+
+        createImage(mbitmap);
+    }
+
+    public Bitmap getBitmapOFRootView(View v) {
+        View rootview = v.getRootView();
+        rootview.setDrawingCacheEnabled(true);
+        Bitmap bitmap1 = rootview.getDrawingCache();
+        return bitmap1;
+    }
+
+    public void createImage(Bitmap bmp) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 40, bytes);
+        File file = new File(Environment.getExternalStorageDirectory() +
+                "/capturedscreenandroid.jpg");
+        try {
+            file.createNewFile();
+            FileOutputStream outputStream = new FileOutputStream(file);
+            outputStream.write(bytes.toByteArray());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

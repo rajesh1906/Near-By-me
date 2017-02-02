@@ -67,10 +67,10 @@ public class More_detail extends AppCompatActivity implements Api_interface {
         });
 
         range = getResources().getStringArray(R.array.range);
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, range);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.custom_spinner,R.id.txt_item, range);
 
         // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.setDropDownViewResource(R.layout.custom_spinner);
 
         // attaching data adapter to spinner
         spinner.setAdapter(dataAdapter);
