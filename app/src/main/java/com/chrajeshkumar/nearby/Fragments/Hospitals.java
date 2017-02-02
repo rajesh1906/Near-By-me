@@ -10,8 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -21,16 +21,11 @@ import com.chrajeshkumar.nearby.Helper.GetClass_name;
 import com.chrajeshkumar.nearby.Helper.GetLat_Longs;
 import com.chrajeshkumar.nearby.Helper.Recalling;
 import com.chrajeshkumar.nearby.Network.Api_CallBack;
-import com.chrajeshkumar.nearby.Network.JSON.CustomJSONObjectRequest;
-import com.chrajeshkumar.nearby.Network.JSON.CustomVolleyRequestQueue;
-import com.chrajeshkumar.nearby.Network.Network_callback;
 import com.chrajeshkumar.nearby.Pojo.Root;
 import com.chrajeshkumar.nearby.R;
-import com.chrajeshkumar.nearby.Utils.EndPoints;
 import com.chrajeshkumar.nearby.adapters.Dashboard_Adapter;
 import com.google.gson.Gson;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -51,12 +46,14 @@ public class Hospitals extends Fragment implements Api_interface,GetClass_name, 
     boolean setone = true;
     private RequestQueue mQueue;
     static boolean initial_is=true;
+    TextView txt_notfound;
     public static final String REQUEST_TAG = "Hospitals";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         context = getActivity().getBaseContext();
         view =  inflater.inflate(R.layout.tab_inflated_view, container, false);
         recycler_view = (RecyclerView)view .findViewById(R.id.recycler_view);
+        txt_notfound = (TextView)view.findViewById(R.id.txt_notfound);
         recycler_view.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(context);
         recycler_view.setLayoutManager(mLayoutManager);
@@ -81,9 +78,19 @@ public class Hospitals extends Fragment implements Api_interface,GetClass_name, 
     @Override
     public void resultentApi(String result) {
         Log.e(" result is "," resultent api is in fragement"+result);
+
         try{
-            root = gson.fromJson(result,Root.class);
-            recycler_view.setAdapter(new Dashboard_Adapter(context,root));
+            JSONObject jsonObject = new JSONObject((result).toString());
+//            status
+            if(jsonObject.getString("status").equals("OK")) {
+                txt_notfound.setVisibility(View.GONE);
+                recycler_view.setVisibility(View.VISIBLE);
+                root = gson.fromJson(result, Root.class);
+                recycler_view.setAdapter(new Dashboard_Adapter(context, root));
+            }else{
+                txt_notfound.setVisibility(View.VISIBLE);
+                recycler_view.setVisibility(View.GONE);
+            }
 
 
         }catch (Exception e){
@@ -112,22 +119,10 @@ public class Hospitals extends Fragment implements Api_interface,GetClass_name, 
 
         try {
            Log.e("response is ","<>in fragment<>"+(response).toString());
-            resultentApi((response).toString());
+                resultentApi((response).toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void Volley_service(){
-        // Instantiate the RequestQueue.
-        mQueue = CustomVolleyRequestQueue.getInstance(context)
-                .getRequestQueue();
-        String url = EndPoints.getSearching(getLat_longs.getLatitude(),getLat_longs.getLongitude(),"hospital");
-        final CustomJSONObjectRequest jsonRequest = new CustomJSONObjectRequest(Request.Method
-                .GET, url,
-                new JSONObject(), this, this);
-        jsonRequest.setTag(REQUEST_TAG);
-        mQueue.add(jsonRequest);
     }
     @Override
     public void onStop() {

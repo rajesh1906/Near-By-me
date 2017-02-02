@@ -16,7 +16,6 @@ import com.chrajeshkumar.nearby.Helper.Api_interface;
 import com.chrajeshkumar.nearby.Helper.GetLat_Longs;
 import com.chrajeshkumar.nearby.Helper.Recalling;
 import com.chrajeshkumar.nearby.Network.Api_CallBack;
-import com.chrajeshkumar.nearby.Network.Network_callback;
 import com.chrajeshkumar.nearby.Pojo.Root;
 import com.chrajeshkumar.nearby.R;
 import com.chrajeshkumar.nearby.adapters.Dashboard_Adapter;

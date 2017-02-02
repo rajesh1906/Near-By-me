@@ -86,9 +86,9 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 distance = Integer.parseInt(range[position].replaceAll("[\\D]", ""));
-                Toast.makeText(DashBoard.this, "distance is " + distance, Toast.LENGTH_LONG).show();
+                Toast.makeText(DashBoard.this, "distance is " + range[position], Toast.LENGTH_LONG).show();
                 adapter.Calling_Fregment(viewPager.getCurrentItem());
-                Log.e("view pager position is ", "<><><" + viewPager.getCurrentItem());
+//                Log.e("view pager position is ", "<><><" + viewPager.getCurrentItem());
             }
 
             @Override

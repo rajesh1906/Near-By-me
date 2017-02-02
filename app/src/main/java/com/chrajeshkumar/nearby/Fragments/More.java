@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListAdapter;
 
 import com.chrajeshkumar.nearby.Activities.DashBoard;
 import com.chrajeshkumar.nearby.Activities.More_detail;
@@ -25,10 +24,8 @@ import com.chrajeshkumar.nearby.Helper.GetClass_name;
 import com.chrajeshkumar.nearby.Helper.GetLat_Longs;
 import com.chrajeshkumar.nearby.Helper.Recalling;
 import com.chrajeshkumar.nearby.Network.Api_CallBack;
-import com.chrajeshkumar.nearby.Network.Network_callback;
 import com.chrajeshkumar.nearby.Pojo.Root;
 import com.chrajeshkumar.nearby.R;
-import com.chrajeshkumar.nearby.adapters.Dashboard_Adapter;
 import com.chrajeshkumar.nearby.adapters.More_Adapter;
 import com.google.gson.Gson;
 
@@ -50,6 +47,7 @@ public class More extends Fragment implements Api_interface,GetClass_name,Recall
     RecyclerView recycler_view;
     LinearLayoutManager mLayoutManager;
     CardView card_view;
+    String selected_category;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         context = getActivity().getBaseContext();
@@ -67,6 +65,7 @@ public class More extends Fragment implements Api_interface,GetClass_name,Recall
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selected_category = more_itmes[position];
                 new Api_CallBack(More.this,getLat_longs.getLatitude(),getLat_longs.getLongitude(),more_itmes[position]);
             }
         });
@@ -96,6 +95,7 @@ public class More extends Fragment implements Api_interface,GetClass_name,Recall
             root = gson.fromJson(result,Root.class);
             Intent intent = new Intent(context, More_detail.class);
             intent.putExtra("root_pojo", gson.toJson(root));
+            intent.putExtra("title",selected_category);
             startActivity(intent);
 
         }catch (Exception e){
