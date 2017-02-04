@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Toast;
 
 import com.chrajeshkumar.nearby.Activities.DashBoard;
 import com.chrajeshkumar.nearby.Activities.More_detail;
@@ -26,6 +27,7 @@ import com.chrajeshkumar.nearby.Helper.Recalling;
 import com.chrajeshkumar.nearby.Network.Api_CallBack;
 import com.chrajeshkumar.nearby.Pojo.Root;
 import com.chrajeshkumar.nearby.R;
+import com.chrajeshkumar.nearby.Utils.CheckNetwork;
 import com.chrajeshkumar.nearby.adapters.More_Adapter;
 import com.google.gson.Gson;
 
@@ -66,7 +68,11 @@ public class More extends Fragment implements Api_interface,GetClass_name,Recall
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selected_category = more_itmes[position];
-                new Api_CallBack(More.this,getLat_longs.getLatitude(),getLat_longs.getLongitude(),more_itmes[position]);
+                if(CheckNetwork.isOnline(DashBoard.activity)) {
+                    new Api_CallBack(More.this, getLat_longs.getLatitude(), getLat_longs.getLongitude(), more_itmes[position]);
+                }else{
+                    Toast.makeText(DashBoard.activity,"Please check your internet connection",Toast.LENGTH_LONG).show();
+                }
             }
         });
         return view;

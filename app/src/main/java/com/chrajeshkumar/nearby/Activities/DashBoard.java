@@ -2,6 +2,7 @@ package com.chrajeshkumar.nearby.Activities;
 
 import android.app.Activity;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -32,7 +33,6 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs {
     Spinner spinner;
     public static int distance = 500;
     String[] range;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +49,9 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs {
             tabLayout.addTab(tabLayout.newTab().setText(tab_names[i]));
         }
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FF8C00"));
+//        tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
+//        tabLayout.setTabTextColors(Color.parseColor("#727272"), Color.parseColor("#FF8C00"));
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter
                 (getSupportFragmentManager(), tabLayout.getTabCount(), DashBoard.this);

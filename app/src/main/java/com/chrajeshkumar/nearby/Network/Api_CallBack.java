@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -111,6 +112,12 @@ public class Api_CallBack implements Response.Listener,
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.e("error is ","<><>error"+error.toString());
+        if (null != progressDialog) {
+            if(progressDialog.isShowing()){
+                progressDialog.dismiss();
+            }
+        }
+        Toast.makeText(context,"Internal Error Please search after some time",Toast.LENGTH_LONG).show();
     }
 
     @Override

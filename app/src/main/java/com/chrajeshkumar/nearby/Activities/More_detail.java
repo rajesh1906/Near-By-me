@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chrajeshkumar.nearby.Fragments.More;
 import com.chrajeshkumar.nearby.Helper.Api_interface;
@@ -19,6 +20,7 @@ import com.chrajeshkumar.nearby.Helper.GetLat_Longs;
 import com.chrajeshkumar.nearby.Network.Api_CallBack;
 import com.chrajeshkumar.nearby.Pojo.Root;
 import com.chrajeshkumar.nearby.R;
+import com.chrajeshkumar.nearby.Utils.CheckNetwork;
 import com.chrajeshkumar.nearby.adapters.Dashboard_Adapter;
 import com.google.gson.Gson;
 
@@ -78,7 +80,12 @@ public class More_detail extends AppCompatActivity implements Api_interface {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 distance = Integer.parseInt(range[position].replaceAll("[\\D]", ""));
-                new Api_CallBack(More_detail.this,getLat_longs.getLatitude(),getLat_longs.getLongitude(),category);
+
+                if(CheckNetwork.isOnline(More_detail.this)) {
+                    new Api_CallBack(More_detail.this, getLat_longs.getLatitude(), getLat_longs.getLongitude(), category);
+                }else{
+                    Toast.makeText(More_detail.this,"Please check your internet connection",Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override

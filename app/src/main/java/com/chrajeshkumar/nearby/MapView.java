@@ -66,9 +66,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
     private Boolean isFabOpen = false;
     ArrayList<LatLng> markerPoints;
-    LatLng location,own_location;
+    LatLng location, own_location;
     Bitmap mbitmap;
-    ImageView image_screen_shot,img_back;
+    ImageView image_screen_shot, img_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,11 +84,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         Bundle bundle = getIntent().getBundleExtra("Location_info");
-
         latitude = bundle.getString("lat");
         longitude = bundle.getString("long");
         location_name = bundle.getString("location_name");
-
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
         fab_close = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_close);
         rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.rotate_forward);
@@ -100,16 +98,17 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         markerPoints = new ArrayList<LatLng>();
         image_screen_shot.setVisibility(View.GONE);
     }
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-         location = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
+        location = new LatLng(Double.valueOf(latitude), Double.valueOf(longitude));
         GetLat_Longs getLat_longs = (GetLat_Longs) DashBoard.activity;
-         own_location = new LatLng(Double.valueOf(getLat_longs.getLatitude()),Double.valueOf(getLat_longs.getLongitude()));
+        own_location = new LatLng(Double.valueOf(getLat_longs.getLatitude()), Double.valueOf(getLat_longs.getLongitude()));
         googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(Double.valueOf(latitude), Double.valueOf(longitude)), 17));
         mMap.addMarker(new MarkerOptions().position(location).title(location_name).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
         mMap.addMarker(new MarkerOptions().position(own_location).title("Me").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-        mMap.setOnMarkerClickListener(this);
+//        mMap.setOnMarkerClickListener(this);
     }
 
     @Override
@@ -147,11 +146,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     }
 
 
-
-
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.fab:
                 animateFAB();
                 break;
@@ -161,7 +158,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 DownloadTask downloadTask = new DownloadTask();
                 // Start downloading json data from Google Directions API
                 downloadTask.execute(url);
-                animateFAB();
+//                animateFAB();
                 break;
             case R.id.fab_share:
                 screenShot();
@@ -175,7 +172,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     public void animateFAB() {
 
         if (isFabOpen) {
-
             fab.startAnimation(rotate_backward);
             fab_share.startAnimation(fab_close);
             fab_root_view.startAnimation(fab_close);
@@ -185,7 +181,6 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             Log.d("Raj", "close");
 
         } else {
-
             fab.startAnimation(rotate_forward);
             fab_root_view.startAnimation(fab_open);
             fab_share.startAnimation(fab_open);
@@ -193,44 +188,42 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             fab_root_view.setClickable(true);
             isFabOpen = true;
             Log.d("Raj", "open");
-
         }
     }
-
-
-    private String getDirectionsUrl(LatLng origin,LatLng dest){
+    private String getDirectionsUrl(LatLng origin, LatLng dest) {
 
         // Origin of route
-        String str_origin = "origin="+origin.latitude+","+origin.longitude;
+        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
 
         // Destination of route
-        String str_dest = "destination="+dest.latitude+","+dest.longitude;
+        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
 
 
         // Sensor enabled
         String sensor = "sensor=false";
 
         // Building the parameters to the web service
-        String parameters = str_origin+"&"+str_dest+"&"+sensor;
+        String parameters = str_origin + "&" + str_dest + "&" + sensor;
 
         // Output format
         String output = "json";
 
         // Building the url to the web service
-        String url = "https://maps.googleapis.com/maps/api/directions/"+output+"?"+parameters;
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
 
 
         return url;
     }
 
 
-
-    /** A method to download json data from url */
+    /**
+     * A method to download json data from url
+     */
     private String downloadUrl(String strUrl) throws IOException {
         String data = "";
         InputStream iStream = null;
         HttpURLConnection urlConnection = null;
-        try{
+        try {
             URL url = new URL(strUrl);
 
             // Creating an http connection to communicate with url
@@ -244,10 +237,10 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
             BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
 
-            StringBuffer sb  = new StringBuffer();
+            StringBuffer sb = new StringBuffer();
 
             String line = "";
-            while( ( line = br.readLine())  != null){
+            while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
 
@@ -255,15 +248,14 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
 
             br.close();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally{
+        } finally {
             iStream.close();
             urlConnection.disconnect();
         }
         return data;
     }
-
 
 
     // Fetches data from url passed
@@ -276,11 +268,11 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             // For storing data from web service
             String data = "";
 
-            try{
+            try {
                 // Fetching the data from web service
                 data = downloadUrl(url[0]);
-            }catch(Exception e){
-                Log.d("Background Task",e.toString());
+            } catch (Exception e) {
+                Log.d("Background Task", e.toString());
             }
             return data;
         }
@@ -299,8 +291,10 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         }
     }
 
-    /** A class to parse the Google Places in JSON format */
-    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String,String>>> >{
+    /**
+     * A class to parse the Google Places in JSON format
+     */
+    private class ParserTask extends AsyncTask<String, Integer, List<List<HashMap<String, String>>>> {
 
         // Parsing the data in non-ui thread
         @Override
@@ -309,13 +303,13 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             JSONObject jObject;
             List<List<HashMap<String, String>>> routes = null;
 
-            try{
+            try {
                 jObject = new JSONObject(jsonData[0]);
                 DirectionsJSONParser parser = new DirectionsJSONParser();
 
                 // Starts parsing data
                 routes = parser.parse(jObject);
-            }catch(Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return routes;
@@ -329,7 +323,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             MarkerOptions markerOptions = new MarkerOptions();
 
             // Traversing through all the routes
-            for(int i=0;i<result.size();i++){
+            for (int i = 0; i < result.size(); i++) {
                 points = new ArrayList<LatLng>();
                 lineOptions = new PolylineOptions();
 
@@ -337,8 +331,8 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
                 List<HashMap<String, String>> path = result.get(i);
 
                 // Fetching all the points in i-th route
-                for(int j=0;j<path.size();j++){
-                    HashMap<String,String> point = path.get(j);
+                for (int j = 0; j < path.size(); j++) {
+                    HashMap<String, String> point = path.get(j);
 
                     double lat = Double.parseDouble(point.get("lat"));
                     double lng = Double.parseDouble(point.get("lng"));
@@ -356,6 +350,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
             mMap.addPolyline(lineOptions);
         }
     }
+
     public void screenShot() {
         mbitmap = getBitmapOFRootView(fab_share);
 //        image_screen_shot.setImageBitmap(mbitmap);
