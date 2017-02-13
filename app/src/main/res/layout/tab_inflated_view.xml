@@ -1,18 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
+
     <TextView
         android:id="@+id/txt_notfound"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:text="Results not found please change Distance Range"
         android:textColor="@color/DarkRed"
-        android:visibility="gone"
-        android:layout_centerInParent="true"/>
+        android:visibility="gone" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:scaleType="fitCenter"
+        android:layout_gravity="right"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/menu_icon"
+        android:visibility="gone"
+        app:backgroundTint="@color/White"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp" >
+
+        </android.support.design.widget.FloatingActionButton>
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:visibility="gone"
+        android:background="@color/colorPrimary">
+
+        <ListView
+            android:id="@+id/recycler_menu_items"
+            android:layout_width="match_parent"
+            android:divider="@color/White"
+            android:layout_height="match_parent" />
+
+    </FrameLayout>
 </RelativeLayout>

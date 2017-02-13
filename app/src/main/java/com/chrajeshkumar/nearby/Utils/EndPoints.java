@@ -1,5 +1,7 @@
 package com.chrajeshkumar.nearby.Utils;
 
+import android.content.Context;
+
 import com.chrajeshkumar.nearby.Activities.DashBoard;
 import com.chrajeshkumar.nearby.Activities.More_detail;
 
@@ -25,7 +27,7 @@ public class EndPoints {
                 distance_local = More_detail.distance;
             }
         }
-        searching = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+latitude+","+longitude+"&radius="+distance_local+"&types="+type+"&name="+type+"&sensor=false&key=AIzaSyCrPjCqDlVZxf3nIznYNizLDFeSx-AYDk4";
+            searching = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+latitude+","+longitude+"&radius="+distance_local+"&types="+type+"&name="+type+"&sensor=false&key=AIzaSyCrPjCqDlVZxf3nIznYNizLDFeSx-AYDk4";
         return searching;
 
     }

@@ -33,4 +33,24 @@
         <item>4 km</item>
         <item>5 km</item>
     </string-array>
+
+    <string-array name="hospital_categories">
+        <item>All Categories</item>
+        <item>Cancer Hospitals</item>
+        <item>Cardiology Hospitals</item>
+        <item>Children Hospitals</item>
+        <item>Dental Hospitals</item>
+        <item>Emergency Hospitals</item>
+        <item>ENT Hospitals</item>
+        <item>Eye Hospitals</item>
+        <item>Gastroenterologist Hospitals</item>
+        <item>Maternity Hospitals</item>
+        <item>Orthopaedic Hospitals</item>
+        <item>Mental Hospitals</item>
+        <item>Neurology Hospitals</item>
+        <item>Psychiatric Hospitals</item>
+        <item>Radiology Hospitals</item>
+        <item>Veterinary Hospitals</item>
+
+    </string-array>
 </resources>

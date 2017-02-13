@@ -117,7 +117,7 @@ public class Api_CallBack implements Response.Listener,
                 progressDialog.dismiss();
             }
         }
-        Toast.makeText(context,"Internal Error Please search after some time",Toast.LENGTH_LONG).show();
+//        Toast.makeText(context,"Internal Error Please search after some time",Toast.LENGTH_LONG).show();
     }
 
     @Override

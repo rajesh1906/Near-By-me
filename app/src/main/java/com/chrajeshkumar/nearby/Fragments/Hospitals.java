@@ -3,6 +3,7 @@ package com.chrajeshkumar.nearby.Fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +55,10 @@ public class Hospitals extends Fragment implements Api_interface, GetClass_name,
     static boolean initial_is = true;
     TextView txt_notfound;
     public static final String REQUEST_TAG = "Hospitals";
+    FrameLayout frame_layout;
+    FloatingActionButton fab_menu;
+    ListView recycler_menu_items;
+    String[] hospitals_list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,11 +66,44 @@ public class Hospitals extends Fragment implements Api_interface, GetClass_name,
         view = inflater.inflate(R.layout.tab_inflated_view, container, false);
         recycler_view = (RecyclerView) view.findViewById(R.id.recycler_view);
         txt_notfound = (TextView) view.findViewById(R.id.txt_notfound);
+        frame_layout = (FrameLayout)view.findViewById(R.id.frame_layout);
+        fab_menu = (FloatingActionButton)view.findViewById(R.id.fab_menu);
+        recycler_menu_items = (ListView)view.findViewById(R.id.recycler_menu_items);
         recycler_view.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(context);
         recycler_view.setLayoutManager(mLayoutManager);
+       hospitals_list = getResources().getStringArray(R.array.hospital_categories);
+        ArrayAdapter<String> dataAdapter_seva = new ArrayAdapter<String>(context, R.layout.custom_list_item,R.id.txt_value, hospitals_list);
+        dataAdapter_seva.setDropDownViewResource(R.layout.custom_list_item);
+        recycler_menu_items.setAdapter(dataAdapter_seva);
+
+
+        fab_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fab_menu.setVisibility(View.GONE);
+                frame_layout.setVisibility(View.VISIBLE);
+            }
+        });
         from_class = Hospitals.class;
 //        Volley_service();
+        recycler_menu_items.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                fab_menu.setVisibility(View.VISIBLE);
+                frame_layout.setVisibility(View.GONE);
+
+                if(CheckNetwork.isOnline(DashBoard.activity)) {
+                    if(position==0) {
+                        new Api_CallBack(Hospitals.this, getLat_longs.getLatitude(), getLat_longs.getLongitude(), "hospitals");
+                    }else{
+                        new Api_CallBack(Hospitals.this, getLat_longs.getLatitude(), getLat_longs.getLongitude(), hospitals_list[position].replace(" ","%20"));
+                    }
+                }else{
+                    Toast.makeText(DashBoard.activity,"Please check your internet connection",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
         return view;
     }
 
@@ -74,7 +116,7 @@ public class Hospitals extends Fragment implements Api_interface, GetClass_name,
             setone = false;
             initial_is = false;
             if(CheckNetwork.isOnline(DashBoard.activity)) {
-            new Api_CallBack(Hospitals.this, getLat_longs.getLatitude(), getLat_longs.getLongitude(), "hospital");
+            new Api_CallBack(Hospitals.this, getLat_longs.getLatitude(), getLat_longs.getLongitude(), "hospitals");
             }else{
                 Toast.makeText(DashBoard.activity,"Please check your internet connection",Toast.LENGTH_LONG).show();
             }

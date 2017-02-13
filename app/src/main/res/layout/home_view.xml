@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/tools">
 
         <RelativeLayout
             android:id="@+id/rel"
@@ -54,5 +56,24 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
+        android:layout_above="@+id/adView"
         android:layout_below="@id/tab_layout"/>
+   <!-- <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-9862631671335648/9856902219" />-->
+
+    <com.google.android.gms.ads.AdView android:id="@+id/adView"
+
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        ads:adUnitId="ca-app-pub-9862631671335648/9856902219"
+        ads:adSize="SMART_BANNER"
+        android:layout_alignParentBottom="true"
+        />
 </RelativeLayout>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "70288767558",
+    "firebase_url": "https://nearbyme-1485344821569.firebaseio.com",
+    "project_id": "nearbyme-1485344821569",
+    "storage_bucket": "nearbyme-1485344821569.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70288767558:android:764a6a6920b48b5f",
+        "android_client_info": {
+          "package_name": "com.chrajeshkumar.nearby"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "70288767558-5fj05o6g2nk0n9le4h6ptk1g7cvvr61u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCK1vJJAHaWDxM62FW1p1y1pCOBiEebW_0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
