@@ -41,7 +41,6 @@ import org.json.JSONObject;
 
 public class Hospitals extends Fragment implements Api_interface, GetClass_name, Response.Listener,
         Response.ErrorListener, Recalling {
-
     RecyclerView recycler_view;
     View view;
     public Context context;
@@ -66,18 +65,16 @@ public class Hospitals extends Fragment implements Api_interface, GetClass_name,
         view = inflater.inflate(R.layout.tab_inflated_view, container, false);
         recycler_view = (RecyclerView) view.findViewById(R.id.recycler_view);
         txt_notfound = (TextView) view.findViewById(R.id.txt_notfound);
-        frame_layout = (FrameLayout)view.findViewById(R.id.frame_layout);
-        fab_menu = (FloatingActionButton)view.findViewById(R.id.fab_menu);
-        recycler_menu_items = (ListView)view.findViewById(R.id.recycler_menu_items);
+        frame_layout = (FrameLayout) view.findViewById(R.id.frame_layout);
+        fab_menu = (FloatingActionButton) view.findViewById(R.id.fab_menu);
+        recycler_menu_items = (ListView) view.findViewById(R.id.recycler_menu_items);
         recycler_view.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(context);
         recycler_view.setLayoutManager(mLayoutManager);
-       hospitals_list = getResources().getStringArray(R.array.hospital_categories);
-        ArrayAdapter<String> dataAdapter_seva = new ArrayAdapter<String>(context, R.layout.custom_list_item,R.id.txt_value, hospitals_list);
+        hospitals_list = getResources().getStringArray(R.array.hospital_categories);
+        ArrayAdapter<String> dataAdapter_seva = new ArrayAdapter<String>(context, R.layout.custom_list_item, R.id.txt_value, hospitals_list);
         dataAdapter_seva.setDropDownViewResource(R.layout.custom_list_item);
         recycler_menu_items.setAdapter(dataAdapter_seva);
-
-
         fab_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,14 +90,14 @@ public class Hospitals extends Fragment implements Api_interface, GetClass_name,
                 fab_menu.setVisibility(View.VISIBLE);
                 frame_layout.setVisibility(View.GONE);
 
-                if(CheckNetwork.isOnline(DashBoard.activity)) {
-                    if(position==0) {
+                if (CheckNetwork.isOnline(DashBoard.activity)) {
+                    if (position == 0) {
                         new Api_CallBack(Hospitals.this, getLat_longs.getLatitude(), getLat_longs.getLongitude(), "hospitals");
-                    }else{
-                        new Api_CallBack(Hospitals.this, getLat_longs.getLatitude(), getLat_longs.getLongitude(), hospitals_list[position].replace(" ","%20"));
+                    } else {
+                        new Api_CallBack(Hospitals.this, getLat_longs.getLatitude(), getLat_longs.getLongitude(), hospitals_list[position].replace(" ", "%20"));
                     }
-                }else{
-                    Toast.makeText(DashBoard.activity,"Please check your internet connection",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(DashBoard.activity, "Please check your internet connection", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -115,19 +112,17 @@ public class Hospitals extends Fragment implements Api_interface, GetClass_name,
         if (isVisibleToUser && setone) {
             setone = false;
             initial_is = false;
-            if(CheckNetwork.isOnline(DashBoard.activity)) {
-            new Api_CallBack(Hospitals.this, getLat_longs.getLatitude(), getLat_longs.getLongitude(), "hospitals");
-            }else{
-                Toast.makeText(DashBoard.activity,"Please check your internet connection",Toast.LENGTH_LONG).show();
+            if (CheckNetwork.isOnline(DashBoard.activity)) {
+                new Api_CallBack(Hospitals.this, getLat_longs.getLatitude(), getLat_longs.getLongitude(), "hospitals");
+            } else {
+                Toast.makeText(DashBoard.activity, "Please check your internet connection", Toast.LENGTH_LONG).show();
             }
-
         }
     }
 
     @Override
     public void resultentApi(String result) {
         Log.e(" result is ", " resultent api is in fragement" + result);
-
         try {
             JSONObject jsonObject = new JSONObject((result).toString());
 //            status
@@ -140,8 +135,6 @@ public class Hospitals extends Fragment implements Api_interface, GetClass_name,
                 txt_notfound.setVisibility(View.VISIBLE);
                 recycler_view.setVisibility(View.GONE);
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -157,7 +150,6 @@ public class Hospitals extends Fragment implements Api_interface, GetClass_name,
         return from_class;
     }
 
-
     @Override
     public void onErrorResponse(VolleyError error) {
         Log.e("error is ", "<><>error" + error.toString());
@@ -165,7 +157,6 @@ public class Hospitals extends Fragment implements Api_interface, GetClass_name,
 
     @Override
     public void onResponse(Object response) {
-
         try {
             Log.e("response is ", "<>in fragment<>" + (response).toString());
             resultentApi((response).toString());
@@ -186,10 +177,10 @@ public class Hospitals extends Fragment implements Api_interface, GetClass_name,
     public void reCall_network_callback() {
         Log.e("coming to interface data is ", "<<>><>");
 //        if(initial_is)
-        if(CheckNetwork.isOnline(DashBoard.activity)) {
-        new Api_CallBack(Hospitals.this, getLat_longs.getLatitude(), getLat_longs.getLongitude(), "hospital");
-        }else{
-            Toast.makeText(DashBoard.activity,"Please check your internet connection",Toast.LENGTH_LONG).show();
+        if (CheckNetwork.isOnline(DashBoard.activity)) {
+            new Api_CallBack(Hospitals.this, getLat_longs.getLatitude(), getLat_longs.getLongitude(), "hospital");
+        } else {
+            Toast.makeText(DashBoard.activity, "Please check your internet connection", Toast.LENGTH_LONG).show();
         }
     }
 }

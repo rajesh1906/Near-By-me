@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.chrajeshkumar.nearby.Helper.GPSTracker;
 import com.chrajeshkumar.nearby.Helper.GetLat_Longs;
+import com.chrajeshkumar.nearby.Helper.Getting_Lat_Instance;
 import com.chrajeshkumar.nearby.R;
 import com.chrajeshkumar.nearby.adapters.PagerAdapter;
 import com.google.android.gms.ads.AdRequest;
@@ -194,7 +195,7 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs {
     }
 
     public void showSettingsAlert() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(DashBoard.activity);
 
         // Setting Dialog Title
         alertDialog.setTitle("GPS is settings");
@@ -209,7 +210,7 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs {
         alertDialog.setPositiveButton("Settings", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivity(intent);
+                DashBoard.activity.startActivity(intent);
                 finish();
             }
         });
@@ -245,4 +246,9 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs {
         super.onActivityResult(requestCode, resultCode, data);
         Toast.makeText(this, "onActiviy called", Toast.LENGTH_LONG).show();
     }
+
+    /*@Override
+    public void getLat_Instance() {
+        gettingLatLongs();
+    }*/
 }

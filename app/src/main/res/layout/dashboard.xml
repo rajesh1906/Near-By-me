@@ -8,7 +8,7 @@
         <com.chrajeshkumar.nearby.Helper.CustomeGridview
             android:id="@+id/gridview"
             android:layout_width="wrap_content"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="15dp"
             android:adjustViewBounds="true"
@@ -29,6 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/gridview"
             android:layout_centerInParent="true"
+            android:visibility="gone"
             android:background="@drawable/coming_soon">
 
         </ImageView>

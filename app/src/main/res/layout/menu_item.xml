@@ -49,6 +49,7 @@
                     android:id="@+id/txt_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     style="@style/header_list"
                     android:text="title"/>
 

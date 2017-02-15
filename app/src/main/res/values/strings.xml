@@ -20,10 +20,24 @@
     <string-array name="more_items">
         <item>Atms</item>
         <item>Clubs</item>
+        <item>Railway station</item>
+        <item>Salon</item>
+        <item>Beauty Parlour</item>
+        <item>Bakeries</item>
+        <item>Cafes</item>
+        <item>Theatre</item>
+        <item>Shopping Mall</item>
     </string-array>
     <string-array name="more_icons">
         <item>@drawable/atm</item>
         <item>@drawable/clubs</item>
+        <item>@drawable/train</item>
+        <item>@drawable/salon</item>
+        <item>@drawable/beauty</item>
+        <item>@drawable/backery</item>
+        <item>@drawable/cafe</item>
+        <item>@drawable/movie</item>
+        <item>@drawable/shopping</item>
     </string-array>
     <string-array name="range">
         <item>500 m</item>
@@ -33,7 +47,6 @@
         <item>4 km</item>
         <item>5 km</item>
     </string-array>
-
     <string-array name="hospital_categories">
         <item>All Categories</item>
         <item>Cancer Hospitals</item>
@@ -51,6 +64,5 @@
         <item>Psychiatric Hospitals</item>
         <item>Radiology Hospitals</item>
         <item>Veterinary Hospitals</item>
-
     </string-array>
 </resources>
