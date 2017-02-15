@@ -45,10 +45,10 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs {
     public static int distance = 500;
     String[] range;
     public boolean coming_to;
-    private AdView mAdView;
-    private static InterstitialAd mInterstitialAd;
-    private static AdRequest inter_adRequest;
-    private AdRequest banner_adRequest;
+    public AdView mAdView;
+    public static InterstitialAd mInterstitialAd;
+    public static AdRequest inter_adRequest;
+    public AdRequest banner_adRequest;
     private static Context context;
 
     @Override
@@ -122,7 +122,7 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs {
         my_adds();
     }
 
-    protected static void initializeInterstitialAdds() {
+    public static void initializeInterstitialAdds() {
         mInterstitialAd = new InterstitialAd(context);
         mInterstitialAd.setAdUnitId("ca-app-pub-9862631671335648/2333635418");
         inter_adRequest = new AdRequest.Builder()
@@ -171,9 +171,9 @@ public class DashBoard extends AppCompatActivity implements GetLat_Longs {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (mInterstitialAd.isLoaded()) {
+       /* if (mInterstitialAd.isLoaded()) {
             mInterstitialAd.show();
-        }
+        }*/
     }
 
     public void gettingLatLongs() {

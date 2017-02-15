@@ -73,6 +73,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        DashBoard.initializeInterstitialAdds();
         setContentView(R.layout.map_view);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab_share = (FloatingActionButton) findViewById(R.id.fab_share);
@@ -380,4 +381,11 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(DashBoard.mInterstitialAd.isLoaded()){
+            DashBoard.mInterstitialAd.show();
+        }
+    }
 }
