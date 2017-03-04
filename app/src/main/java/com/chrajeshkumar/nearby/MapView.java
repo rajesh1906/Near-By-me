@@ -3,9 +3,6 @@ package com.chrajeshkumar.nearby;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.location.Address;
-import android.location.Geocoder;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,7 +19,6 @@ import android.view.animation.Interpolator;
 import android.widget.ImageView;
 
 import com.chrajeshkumar.nearby.Activities.DashBoard;
-import com.chrajeshkumar.nearby.Helper.GPSTracker;
 import com.chrajeshkumar.nearby.Helper.GetLat_Longs;
 import com.chrajeshkumar.nearby.Map.DirectionsJSONParser;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -50,12 +46,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 public class MapView extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, View.OnClickListener {
 
     private GoogleMap mMap;
-    GPSTracker gps;
     String latitude, longitude, location_name;
 
     FloatingActionButton fab;
@@ -96,7 +90,7 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         fab_share.setOnClickListener(this);
         fab_root_view.setOnClickListener(this);
         img_back.setOnClickListener(this);
-        markerPoints = new ArrayList<LatLng>();
+        markerPoints = new ArrayList<>();
         image_screen_shot.setVisibility(View.GONE);
     }
 
@@ -210,10 +204,9 @@ public class MapView extends FragmentActivity implements OnMapReadyCallback, Goo
         String output = "json";
 
         // Building the url to the web service
-        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
 
 
-        return url;
+        return "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
     }
 
 
