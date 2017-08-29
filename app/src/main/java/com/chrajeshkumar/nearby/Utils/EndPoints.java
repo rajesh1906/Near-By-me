@@ -1,6 +1,7 @@
 package com.chrajeshkumar.nearby.Utils;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.chrajeshkumar.nearby.Activities.DashBoard;
 import com.chrajeshkumar.nearby.Activities.More_detail;
@@ -18,6 +19,7 @@ public class EndPoints {
     public static Getting_Lat_Instance getting_lat_instance;
     public static GetLat_Longs getLat_longs;
     public static String getSearching(String latitude,String longitude,String type,String  coming_from) {
+        Log.e("latitude is ","<><>"+latitude+" longtitude is "+longitude+" type is "+type);
         if(coming_from.equals("DashBoard")) {
             if (DashBoard.distance != 500) {
                 distance_local = DashBoard.distance * 1000;

@@ -24,6 +24,7 @@ import com.chrajeshkumar.nearby.Utils.CheckNetwork;
 import com.chrajeshkumar.nearby.adapters.Dashboard_Adapter;
 import com.google.gson.Gson;
 
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 /**
@@ -42,6 +43,7 @@ public class More_detail extends AppCompatActivity implements Api_interface {
     String category;
     Gson gson = new Gson();
     public static int distance = 500;
+    TextView txt_notfound;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,7 @@ public class More_detail extends AppCompatActivity implements Api_interface {
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         img_back = (ImageView) findViewById(R.id.img_back);
         txt_header = (TextView) findViewById(R.id.txt_header);
+        txt_notfound =(TextView) findViewById(R.id.txt_notfound);
         recyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         spinner = (Spinner) findViewById(R.id.spinner);
@@ -100,8 +103,16 @@ public class More_detail extends AppCompatActivity implements Api_interface {
     @Override
     public void resultentApi(String result) {
         try{
-            root = gson.fromJson(result, Root.class);
-            recyclerView.setAdapter(new Dashboard_Adapter(this, root));
+            JSONObject jsonObject =new JSONObject(result);
+            if(jsonObject.getString("status").equals("OK")) {
+                recyclerView.setVisibility(View.VISIBLE);
+                txt_notfound.setVisibility(View.GONE);
+                root = gson.fromJson(result, Root.class);
+                recyclerView.setAdapter(new Dashboard_Adapter(this, root));
+            }else{
+                recyclerView.setVisibility(View.GONE);
+                txt_notfound.setVisibility(View.VISIBLE);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }
